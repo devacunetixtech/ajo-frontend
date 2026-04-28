@@ -51,14 +51,14 @@ export const ToastProvider = ({ children }) => {
       {children}
 
       {/* Toast container — bottom-right, editorial minimal */}
-      <div className="fixed bottom-8 right-8 z-[9999] flex flex-col gap-3 pointer-events-none">
+      <div className="fixed bottom-0 md:bottom-8 right-0 md:right-8 w-full md:w-auto p-4 md:p-0 z-[9999] flex flex-col gap-3 pointer-events-none">
         {toasts.map((t) => (
           <div
             key={t.id}
             className={`
               pointer-events-auto
               flex items-start gap-3
-              min-w-[300px] max-w-[400px]
+              w-full min-w-0 md:min-w-[300px] max-w-none md:max-w-[400px]
               border border-outline-variant/10 border-l-4
               px-5 py-4 shadow-editorial
               ${COLORS[t.type]}

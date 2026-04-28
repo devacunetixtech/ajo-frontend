@@ -24,13 +24,14 @@ const AuthLayout = ({ children, title, subtitle }) => (
         © {new Date().getFullYear()} AjoSave
       </p>
     </div>
-    <div className="flex-1 flex items-center justify-center px-8 py-16">
+    <div className="flex-1 flex items-center justify-center px-6 sm:px-8 py-10 sm:py-16">
       <div className="w-full max-w-md">
-        <div className="mb-12 lg:hidden">
-          <h1 className="font-headline italic text-3xl text-primary">AjoSave</h1>
+        <div className="mb-10 lg:hidden text-center md:text-left">
+          <h1 className="font-headline italic text-4xl text-primary mb-2">AjoSave</h1>
+          <p className="text-[10px] uppercase tracking-[0.25em] text-on-surface-variant/70">The Financial Atelier</p>
         </div>
         <p className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant/60 mb-3">{subtitle}</p>
-        <h2 className="font-headline text-4xl text-on-surface mb-12 tracking-tight">{title}</h2>
+        <h2 className="font-headline text-3xl md:text-4xl text-on-surface mb-12 tracking-tight">{title}</h2>
         {children}
       </div>
     </div>
@@ -229,7 +230,7 @@ export const VerifyEmailPage = () => {
   const s = STATE[status];
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-8">
+    <div className="min-h-screen bg-background flex items-center justify-center px-6 md:px-8">
       <div className="max-w-md text-center">
         <h1 className="font-headline italic text-3xl text-primary mb-10">AjoSave</h1>
 

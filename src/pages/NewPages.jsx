@@ -277,12 +277,12 @@ export const KYCPage = () => {
       </div>
 
       {/* Right panel */}
-      <div className="flex-1 flex items-center justify-center px-8 py-16">
+      <div className="flex-1 flex items-center justify-center px-6 sm:px-8 py-10 sm:py-16">
         <div className="w-full max-w-md">
           <div className="mb-3">
             <p className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant/60">Identity Verification</p>
           </div>
-          <h2 className="font-headline text-4xl text-on-surface mb-3 tracking-tight">Verify your identity.</h2>
+          <h2 className="font-headline text-3xl md:text-4xl text-on-surface mb-3 tracking-tight">Verify your identity.</h2>
           <p className="text-sm text-on-surface-variant mb-12 leading-relaxed">
             Choose one — your BVN or NIN. Either works. You only need to do this once.
           </p>
@@ -301,7 +301,7 @@ export const KYCPage = () => {
           )}
 
           {/* Method selector */}
-          <div className="grid grid-cols-2 gap-3 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
             {[
               { key: "bvn", label: "BVN", sub: "Bank Verification Number", hint: "11 digits linked to your bank account" },
               { key: "nin", label: "NIN",  sub: "National Identity Number", hint: "11 digits on your NIMC slip or NIN card" },
@@ -450,7 +450,7 @@ export const PaymentCallbackPage = () => {
   const s = STATE[status] || STATE.verifying;
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-8">
+    <div className="min-h-screen bg-background flex items-center justify-center px-6 md:px-8">
       <div className="max-w-md w-full text-center">
         <h1 className="font-headline italic text-3xl text-primary mb-16">AjoSave</h1>
 
@@ -531,8 +531,8 @@ export const InvitePage = () => {
   );
 
   if (notFound) return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-8">
-      <div className="max-w-sm text-center">
+    <div className="min-h-screen bg-background flex items-center justify-center px-6 md:px-8">
+      <div className="text-center">
         <h1 className="font-headline italic text-3xl text-primary mb-8">AjoSave</h1>
         <span className="material-symbols-outlined text-5xl text-on-surface-variant/30 mb-4 block">link_off</span>
         <h2 className="font-headline text-3xl text-on-surface mb-3">Invalid invite link.</h2>
@@ -551,8 +551,8 @@ export const InvitePage = () => {
   const isFull   = group.members?.length >= group.maxMembers;
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-8 py-16">
-      <div className="max-w-md w-full">
+    <div className="min-h-screen bg-background flex items-center justify-center px-6 md:px-8 py-10 md:py-16">
+      <div className="w-full max-w-md">
         <div className="mb-12">
           <h1 className="font-headline italic text-3xl text-primary">AjoSave</h1>
         </div>
@@ -567,7 +567,7 @@ export const InvitePage = () => {
         ) : (
           <>
             <p className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant/60 mb-3">You've been invited to join</p>
-            <h2 className="font-headline text-5xl text-primary tracking-tight mb-10">{group.name}</h2>
+            <h2 className="font-headline text-4xl md:text-5xl text-primary tracking-tight mb-10">{group.name}</h2>
 
             {/* Group details */}
             <div className="bg-surface-container-low p-8 rounded-lg mb-10 space-y-5">
@@ -719,7 +719,7 @@ export const AdminGroupPage = () => {
 
   return (
     <AppShell>
-      <section className="px-12 py-12">
+      <section className="px-6 md:px-12 py-8 md:py-12">
 
         {/* Header */}
         <div className="mb-16">
@@ -735,7 +735,7 @@ export const AdminGroupPage = () => {
               <p className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant/60 mb-2">
                 Admin · {group.frequency} · {fmt(group.contributionAmount)} per member
               </p>
-              <h1 className="text-5xl font-headline text-primary tracking-tight">{group.name}</h1>
+              <h1 className="text-4xl md:text-5xl font-headline text-primary tracking-tight">{group.name}</h1>
             </div>
             <div className="text-right">
               <p className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Invite Code</p>
@@ -752,7 +752,7 @@ export const AdminGroupPage = () => {
         </div>
 
         {/* Overview stats */}
-        <div className="grid grid-cols-4 gap-4 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {[
             { label: "Members",       value: `${group.members.length}/${group.maxMembers}` },
             { label: "Current Cycle", value: group.status === "active" ? `${group.currentCycle}/${group.turnOrder?.length}` : "—" },
@@ -766,7 +766,7 @@ export const AdminGroupPage = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
 
           {/* Left — cycle management */}
           <div className="col-span-12 lg:col-span-7 space-y-8">
@@ -784,7 +784,8 @@ export const AdminGroupPage = () => {
                   </div>
                 </div>
 
-                <table className="w-full text-left">
+                <div className="w-full overflow-x-auto hide-scrollbar">
+                <table className="w-full text-left min-w-[500px]">
                   <thead>
                     <tr className="border-b border-outline-variant/30">
                       {["Member","Trust Score","Joined","Action"].map(h => (
@@ -829,6 +830,7 @@ export const AdminGroupPage = () => {
                     })}
                   </tbody>
                 </table>
+                </div>
 
                 {group.members.length >= 2 && (
                   <div className="mt-8 pt-8 border-t border-outline-variant/20">
@@ -870,7 +872,8 @@ export const AdminGroupPage = () => {
                       style={{ width: `${(cycleStatus.paidCount / cycleStatus.totalMembers) * 100}%` }} />
                   </div>
 
-                  <table className="w-full text-left">
+                  <div className="w-full overflow-x-auto hide-scrollbar">
+                  <table className="w-full text-left min-w-[400px]">
                     <thead>
                       <tr className="border-b border-outline-variant/30">
                         {["Member","Trust","Status","Paid At"].map(h => (
@@ -896,6 +899,7 @@ export const AdminGroupPage = () => {
                       ))}
                     </tbody>
                   </table>
+                  </div>
                 </div>
 
                 {/* Payout card */}

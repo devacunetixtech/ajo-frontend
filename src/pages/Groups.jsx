@@ -48,13 +48,13 @@ export function GroupsPage() {
 
   return (
     <AppShell tabs={[{to:"/groups",label:"Circles"},{to:"/groups/new",label:"New Circle"}]}>
-      <section className="px-12 py-12">
-        <div className="flex justify-between items-baseline mb-16">
+      <section className="px-6 md:px-12 py-8 md:py-12">
+        <div className="flex justify-between items-baseline mb-12 md:mb-16">
           <div>
             <p className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant/60 mb-2">Your Portfolio</p>
-            <h1 className="text-5xl font-headline text-primary tracking-tight">Savings Circles</h1>
+            <h1 className="text-4xl md:text-5xl font-headline text-primary tracking-tight">Savings Circles</h1>
           </div>
-          <Link to="/groups/new" className="btn-primary flex items-center gap-2">
+          <Link to="/groups/new" className="btn-primary hidden md:flex items-center gap-2">
             <Icon name="add" /> New Circle
           </Link>
         </div>
@@ -175,13 +175,13 @@ export function CreateGroupPage() {
     <AppShell>
       <div className="pt-16 pb-20 px-6 max-w-2xl mx-auto">
         {/* Step indicator */}
-        <div className="flex items-center gap-3 mb-6 pt-12">
+        <div className="flex items-center gap-3 mb-6 pt-6 md:pt-12">
           <span className={`text-[10px] font-label uppercase tracking-[0.2em] ${step === 1 ? "text-primary font-bold" : "text-on-surface-variant/60"}`}>Step 01</span>
           <div className="h-px w-10 bg-outline-variant opacity-20" />
           <span className={`text-[10px] font-label uppercase tracking-[0.2em] ${step === 2 ? "text-primary font-bold" : "text-on-surface-variant/60"}`}>Step 02</span>
         </div>
 
-        <h1 className="font-headline text-5xl text-primary tracking-tight mb-3">
+        <h1 className="font-headline text-4xl md:text-5xl text-primary tracking-tight mb-3">
           {step === 1 ? "Configure circle." : "Review details."}
         </h1>
         <p className="text-on-surface-variant font-body leading-relaxed mb-16 max-w-sm">
@@ -207,7 +207,7 @@ export function CreateGroupPage() {
 
             <div>
               <label className="field-label">Frequency</label>
-              <div className="grid grid-cols-3 gap-3 mt-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
                 {freqOptions.map(({ value, label, sub }) => (
                   <button
                     key={value}
@@ -250,7 +250,7 @@ export function CreateGroupPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
                 <div>
                   <p className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Member Contribution</p>
                   <p className="font-headline text-3xl text-on-surface">{fmt(form.contributionAmount)}</p>
@@ -349,9 +349,9 @@ export function GroupDetailPage() {
 
   return (
     <AppShell>
-      <section className="px-12 py-12">
+      <section className="px-6 md:px-12 py-8 md:py-12">
         {/* Header */}
-        <div className="mb-16">
+        <div className="mb-12 md:mb-16">
           <div className="flex items-center justify-between mb-6">
             <Link to="/groups" className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant/60 hover:text-primary inline-flex items-center gap-1">
               <Icon name="arrow_back" className="text-sm" /> All Circles
@@ -363,10 +363,10 @@ export function GroupDetailPage() {
               </Link>
             )}
           </div>
-          <div className="flex justify-between items-start mt-4">
+          <div className="flex flex-col md:flex-row justify-between items-start mt-4 gap-6 md:gap-0">
             <div>
               <p className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant/60 mb-2">{group.frequency} · {fmt(group.contributionAmount)} per member</p>
-              <h1 className="text-5xl font-headline text-primary tracking-tight">{group.name}</h1>
+              <h1 className="text-4xl md:text-5xl font-headline text-primary tracking-tight">{group.name}</h1>
             </div>
             <div className="text-right">
               <p className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Invite Code</p>
@@ -376,7 +376,7 @@ export function GroupDetailPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
           {/* Left — cycle status */}
           <div className="col-span-12 lg:col-span-8 space-y-10">
 

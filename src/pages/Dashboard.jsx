@@ -31,10 +31,10 @@ export default function DashboardPage() {
 
   if (loading) return (
     <AppShell tabs={TABS}>
-      <div className="px-12 py-12">
-        <div className="h-12 w-64 bg-surface-container rounded animate-pulse mb-4" />
-        <div className="grid grid-cols-12 gap-8 mt-12">
-          {[1,2,3].map(i => <div key={i} className="col-span-4 h-64 bg-surface-container-low rounded-lg animate-pulse" />)}
+      <div className="px-4 sm:px-6 md:px-12 py-8 md:py-12">
+        <div className="h-12 w-64 bg-surface-container rounded animate-pulse mb-8" />
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 mt-12">
+          {[1,2,3].map(i => <div key={i} className={`col-span-1 md:col-span-${i===1 ? 5 : i===2 ? 4 : 3} h-64 bg-surface-container-low rounded-lg animate-pulse`} />)}
         </div>
       </div>
     </AppShell>
@@ -42,14 +42,14 @@ export default function DashboardPage() {
 
   return (
     <AppShell tabs={TABS}>
-      <section className="px-12 py-12">
+      <section className="px-4 sm:px-6 md:px-12 py-8 md:py-12">
 
         {/* Hero greeting */}
-        <div className="mb-16 max-w-4xl">
-          <h1 className="text-6xl font-headline tracking-tight text-primary mb-4">
+        <div className="mb-12 md:mb-16 max-w-4xl">
+          <h1 className="text-4xl md:text-6xl font-headline tracking-tight text-primary mb-4">
             Welcome back, {firstName}.
           </h1>
-          <p className="text-xl font-body text-on-surface-variant leading-relaxed italic opacity-80">
+          <p className="text-base md:text-xl font-body text-on-surface-variant leading-relaxed italic opacity-80">
             {activeGroups.length > 0
               ? `You're active in ${activeGroups.length} savings circle${activeGroups.length > 1 ? "s" : ""}. Keep the momentum going.`
               : "You have no active circles yet. Create or join one to get started."}
@@ -78,16 +78,16 @@ export default function DashboardPage() {
         )}
 
         {/* Bento stats */}
-        <div className="grid grid-cols-12 gap-8 mb-16">
-          <div className="col-span-12 md:col-span-5 bg-surface-container-low p-8 rounded-lg flex flex-col justify-between h-64 border border-outline-variant/10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 mb-16">
+          <div className="col-span-1 md:col-span-5 bg-surface-container-low p-6 md:p-8 rounded-lg flex flex-col justify-between h-auto min-h-[16rem] border border-outline-variant/10">
             <p className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Total Contributed</p>
-            <div>
-              <h2 className="text-5xl font-headline text-primary">{fmt(totalContrib)}</h2>
+            <div className="mt-8 md:mt-0">
+              <h2 className="text-4xl md:text-5xl font-headline text-primary">{fmt(totalContrib)}</h2>
               <p className="text-sm text-primary/60 font-body mt-2">Across {contribs.filter(c=>c.status==="paid").length} payments</p>
             </div>
           </div>
 
-          <div className="col-span-12 md:col-span-4 bg-primary-gradient text-on-primary p-8 rounded-lg flex flex-col justify-between h-64">
+          <div className="col-span-1 md:col-span-4 bg-primary-gradient text-on-primary p-6 md:p-8 rounded-lg flex flex-col justify-between h-auto min-h-[16rem]">
             <p className="text-[10px] font-label uppercase tracking-widest opacity-70">
               {nextContrib ? "Next Contribution Due" : "No Pending Contributions"}
             </p>
@@ -108,10 +108,10 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="col-span-12 md:col-span-3 bg-surface-container-highest p-8 rounded-lg flex flex-col justify-between h-64">
+          <div className="col-span-1 md:col-span-3 bg-surface-container-highest p-6 md:p-8 rounded-lg flex flex-col justify-between h-auto min-h-[16rem]">
             <p className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant">Active Circles</p>
-            <div className="text-center">
-              <span className="text-7xl font-headline text-primary">{activeGroups.length}</span>
+            <div className="text-center mt-6 md:mt-0">
+              <span className="text-6xl md:text-7xl font-headline text-primary">{activeGroups.length}</span>
               <p className="text-sm font-label uppercase tracking-widest text-on-surface-variant mt-2">Groups</p>
             </div>
             <div className="w-full bg-outline-variant/30 h-1.5 rounded-full overflow-hidden">
@@ -121,28 +121,29 @@ export default function DashboardPage() {
         </div>
 
         {/* Active groups + upcoming */}
-        <div className="grid grid-cols-12 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 mb-16">
 
           {/* Groups */}
-          <div className="col-span-12 lg:col-span-8">
-            <div className="flex justify-between items-baseline mb-8">
-              <h3 className="text-3xl font-headline text-on-surface">My Active Circles</h3>
+          <div className="col-span-1 lg:col-span-8">
+            <div className="flex justify-between items-baseline mb-6 md:mb-8">
+              <h3 className="text-2xl md:text-3xl font-headline text-on-surface">My Active Circles</h3>
               <Link to="/groups" className="text-[10px] font-label uppercase tracking-widest text-primary font-bold border-b border-primary/30 pb-1">
                 View All
               </Link>
             </div>
             <div className="space-y-6">
               {activeGroups.length === 0 && (
-                <div className="card p-10 text-center">
-                  <p className="font-headline italic text-2xl text-on-surface-variant mb-4">No active circles yet.</p>
-                  <Link to="/groups/new" className="btn-primary inline-flex items-center gap-2">
+                <div className="card p-6 md:p-10 text-center border border-outline-variant/10">
+                  <p className="font-headline italic text-xl md:text-2xl text-on-surface-variant mb-4 hidden md:block">No active circles yet.</p>
+                  <p className="font-headline italic text-xl md:text-2xl text-on-surface-variant mb-6 md:hidden mt-2">No active circles yet.</p>
+                  <Link to="/groups/new" className="btn-primary flex items-center gap-2 md:w-auto w-full justify-center">
                     <Icon name="add" /> Create a Circle
                   </Link>
                 </div>
               )}
               {activeGroups.slice(0, 3).map((g) => (
-                <div key={g._id} className="card p-10">
-                  <div className="flex justify-between items-start mb-10">
+                <div key={g._id} className="card p-6 md:p-10">
+                  <div className="flex flex-col md:flex-row md:justify-between items-start mb-6 md:mb-10 gap-6 md:gap-0">
                     <div>
                       <h4 className="text-2xl font-headline text-primary mb-2">{g.name}</h4>
                       <p className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant">
@@ -165,8 +166,8 @@ export default function DashboardPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-between items-end">
-                    <div className="w-2/3">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 md:gap-0">
+                    <div className="w-full md:w-2/3">
                       <p className="text-[10px] font-label uppercase tracking-[0.15em] text-on-surface-variant mb-3">
                         Cycle {g.currentCycle} of {g.turnOrder?.length || g.maxMembers}
                       </p>
@@ -177,7 +178,7 @@ export default function DashboardPage() {
                         />
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between md:justify-end gap-4 border-t md:border-t-0 border-outline-variant/10 pt-4 md:pt-0 w-full md:w-auto mt-2 md:mt-0">
                       {(g.adminId?._id === user?._id || g.adminId === user?._id) && (
                         <Link to={`/groups/${g._id}/admin`}
                           className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors">
@@ -195,9 +196,9 @@ export default function DashboardPage() {
           </div>
 
           {/* Upcoming contributions — Growth Ledger */}
-          <div className="col-span-12 lg:col-span-4">
-            <h3 className="text-3xl font-headline text-on-surface mb-8">Upcoming</h3>
-            <div className="bg-surface-container-low p-8 rounded-lg">
+          <div className="col-span-1 lg:col-span-4">
+            <h3 className="text-2xl md:text-3xl font-headline text-on-surface mb-6 md:mb-8">Upcoming</h3>
+            <div className="bg-surface-container-low p-6 md:p-8 rounded-lg border border-outline-variant/10">
               <div className="space-y-8">
                 {contribs.filter(c => c.status === "pending").slice(0, 5).map((c) => (
                   <div key={c._id} className="growth-ledger-row">
@@ -226,10 +227,11 @@ export default function DashboardPage() {
 
         {/* Recent activity */}
         <div className="mb-24">
-          <div className="flex justify-between items-baseline mb-10">
-            <h3 className="text-3xl font-headline text-on-surface">Recent Activity</h3>
+          <div className="flex justify-between items-baseline mb-6 md:mb-10">
+            <h3 className="text-2xl md:text-3xl font-headline text-on-surface">Recent Activity</h3>
           </div>
-          <table className="w-full text-left border-collapse">
+          <div className="w-full overflow-x-auto hide-scrollbar">
+            <table className="w-full text-left border-collapse min-w-[500px]">
             <thead>
               <tr className="border-b border-outline-variant/30">
                 {["Date","Description","Type","Amount"].map((h) => (
@@ -251,10 +253,11 @@ export default function DashboardPage() {
               )}
             </tbody>
           </table>
+          </div>
         </div>
       </section>
 
-      <footer className="px-12 py-10 border-t border-outline-variant/20 flex justify-between items-center bg-surface-container-low/30">
+      <footer className="px-6 md:px-12 py-10 border-t border-outline-variant/20 flex flex-col md:flex-row gap-6 md:gap-0 justify-between items-center bg-surface-container-low/30">
         <div className="flex items-center gap-4">
           <span className="text-primary font-headline italic text-xl">AjoSave</span>
           <span className="text-[10px] font-label uppercase tracking-widest opacity-40">© {new Date().getFullYear()}</span>

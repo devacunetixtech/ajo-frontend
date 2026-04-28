@@ -5,6 +5,7 @@ import { ProtectedRoute } from "./components/layout/index";
 
 import { RegisterPage, LoginPage, VerifyEmailPage } from "./pages/Auth";
 import DashboardPage from "./pages/Dashboard";
+import AnalyticsPage from "./pages/Analytics";
 import { GroupsPage, CreateGroupPage, GroupDetailPage } from "./pages/Groups";
 import { TransactionsPage, ProfilePage } from "./pages/TransactionsAndProfile";
 import {
@@ -40,6 +41,9 @@ export default function App() {
             } />
             <Route path="/dashboard" element={
               <ProtectedRoute><DashboardPage /></ProtectedRoute>
+            } />
+            <Route path="/analytics" element={
+              <ProtectedRoute><AnalyticsPage /></ProtectedRoute>
             } />
             <Route path="/groups" element={
               <ProtectedRoute><GroupsPage /></ProtectedRoute>

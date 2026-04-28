@@ -16,23 +16,23 @@ export const SkeletonText = ({ lines = 3, className = "" }) => (
 
 // Full Group Detail skeleton — matches the actual layout
 export const GroupDetailSkeleton = () => (
-  <div className="px-12 py-12">
+  <div className="px-6 md:px-12 py-8 md:py-12">
     {/* Header */}
     <Skeleton className="h-3 w-20 mb-6" />
-    <div className="flex justify-between items-start mb-16">
+    <div className="flex flex-col md:flex-row justify-between items-start mb-12 md:mb-16 gap-6 md:gap-0">
       <div className="space-y-3">
         <Skeleton className="h-3 w-40" />
         <Skeleton className="h-12 w-80" />
       </div>
-      <div className="text-right space-y-2">
-        <Skeleton className="h-3 w-24 ml-auto" />
+      <div className="text-left md:text-right space-y-2">
+        <Skeleton className="h-3 w-24 md:ml-auto" />
         <Skeleton className="h-10 w-32 ml-auto" />
       </div>
     </div>
 
-    <div className="grid grid-cols-12 gap-10">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
       {/* Left col */}
-      <div className="col-span-8 space-y-8">
+      <div className="col-span-1 lg:col-span-8 space-y-8">
         {/* Cycle card */}
         <div className="card p-10">
           <div className="flex justify-between mb-8">
@@ -82,7 +82,7 @@ export const GroupDetailSkeleton = () => (
       </div>
 
       {/* Right col */}
-      <div className="col-span-4 space-y-8">
+      <div className="col-span-1 lg:col-span-4 space-y-8">
         <div className="bg-surface-container-low p-8 rounded-lg">
           <Skeleton className="h-3 w-28 mb-6" />
           <div className="space-y-5">

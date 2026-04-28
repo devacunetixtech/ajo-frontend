@@ -27,14 +27,14 @@ export function TransactionsPage() {
 
   return (
     <AppShell tabs={[{to:"/transactions",label:"Transactions"}]}>
-      <section className="px-12 py-12">
-        <div className="mb-16">
+      <section className="px-6 md:px-12 py-8 md:py-12">
+        <div className="mb-12 md:mb-16">
           <p className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant/60 mb-2">Your Ledger</p>
-          <h1 className="text-5xl font-headline text-primary tracking-tight">Transactions</h1>
+          <h1 className="text-4xl md:text-5xl font-headline text-primary tracking-tight">Transactions</h1>
         </div>
 
         {/* Summary cards */}
-        <div className="grid grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 md:mb-16">
           {[
             { label: "Total Paid",     value: fmt(totalPaid) },
             { label: "Pending",        value: fmt(totalPending) },
@@ -48,7 +48,7 @@ export function TransactionsPage() {
         </div>
 
         {/* Filter pills */}
-        <div className="flex gap-3 mb-10">
+        <div className="flex flex-wrap gap-2 md:gap-3 mb-8 md:mb-10">
           {FILTERS.map(f => (
             <button
               key={f}
@@ -68,7 +68,8 @@ export function TransactionsPage() {
         {loading || filtered.length === 0 ? (
           <TransactionsEmptyState filter={filter} loading={loading} />
         ) : (
-          <table className="w-full text-left border-collapse">
+          <div className="w-full overflow-x-auto hide-scrollbar">
+          <table className="w-full text-left border-collapse min-w-[500px]">
             <thead>
               <tr className="border-b border-outline-variant/30">
                 {["Date","Circle","Cycle","Status","Amount"].map(h => (
@@ -92,6 +93,7 @@ export function TransactionsPage() {
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </section>
     </AppShell>
@@ -144,19 +146,26 @@ export function ProfilePage() {
 
   return (
     <AppShell tabs={[{to:"/profile",label:"Profile"}]}>
-      <section className="px-12 py-12 max-w-3xl">
+      <section className="px-6 md:px-12 py-8 md:py-12 max-w-3xl">
 
         {/* Profile header */}
-        <div className="flex items-end gap-8 mb-16">
-          <div className="w-24 h-24 rounded-full bg-primary-gradient flex items-center justify-center text-2xl font-headline font-bold text-on-primary flex-shrink-0">
-            {initials}
+        <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 mb-12 md:mb-16">
+          <div className="flex items-center gap-6 md:gap-0">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-primary-gradient flex items-center justify-center text-2xl font-headline font-bold text-on-primary flex-shrink-0">
+              {initials}
+            </div>
+            <div className="flex-1 md:hidden">
+              <p className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">Trust Score</p>
+              <p className="font-headline text-4xl text-primary">{user?.trustScore ?? 0}</p>
+              <div className="mt-1"><TrustBadge score={user?.trustScore ?? 0} /></div>
+            </div>
           </div>
           <div className="flex-1">
             <p className="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant/60 mb-1">Member Profile</p>
-            <h1 className="font-headline text-4xl text-primary tracking-tight">{user?.name}</h1>
+            <h1 className="font-headline text-3xl md:text-4xl text-primary tracking-tight">{user?.name}</h1>
             <p className="text-sm text-on-surface-variant mt-1">{user?.email}</p>
           </div>
-          <div className="text-right">
+          <div className="hidden md:block text-right">
             <p className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">Trust Score</p>
             <p className="font-headline text-5xl text-primary">{user?.trustScore ?? 0}</p>
             <div className="mt-1"><TrustBadge score={user?.trustScore ?? 0} /></div>
@@ -191,7 +200,7 @@ export function ProfilePage() {
         {/* Trust score breakdown */}
         <div className="bg-surface-container-low p-8 rounded-lg mb-12">
           <p className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-6">How your trust score is calculated</p>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
             {[
               { action: "Paid before due date",     pts: "+2 per cycle",   color: "text-primary" },
               { action: "Paid on due date",         pts: "+1 per cycle",   color: "text-primary" },
@@ -208,7 +217,7 @@ export function ProfilePage() {
 
         {/* Edit form */}
         <form onSubmit={submit} className="space-y-10">
-          <div className="grid grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
             <div>
               <label className="field-label">Full name</label>
               <input name="name" value={form.name} onChange={onChange} required className="field-input" />
@@ -220,8 +229,8 @@ export function ProfilePage() {
           </div>
 
           <div>
-            <p className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-8">Bank Details for Payouts</p>
-            <div className="grid grid-cols-2 gap-10 mb-8">
+            <p className="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-6 md:mb-8">Bank Details for Payouts</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 mb-8">
               <div>
                 <label className="field-label">Bank</label>
                 <select name="bankCode" value={form.bankCode} onChange={onChange} className="field-input bg-transparent">

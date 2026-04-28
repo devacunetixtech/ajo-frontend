@@ -31,15 +31,21 @@
   /* Growth Ledger — the signature component */
   .growth-ledger-row {
     display: grid;
-    grid-template-columns: 72px 1fr auto;
+    grid-template-columns: 48px 1fr auto;
     align-items: baseline;
-    gap: 0 16px;
+    gap: 0 12px;
+  }
+  @media (min-width: 640px) {
+    .growth-ledger-row {
+      grid-template-columns: 72px 1fr auto;
+      gap: 0 16px;
+    }
   }
 
   /* Input: bottom border only, no box */
   .field-input {
     @apply w-full bg-transparent border-0 border-b border-outline-variant/40 pb-2 pt-1
-           text-on-surface text-sm font-body placeholder-on-surface-variant/40
+           text-on-surface text-sm font-body placeholder-on-surface-variant/40 min-h-[48px]
            focus:outline-none focus:border-primary focus:border-b-2
            transition-all duration-200;
   }
@@ -51,7 +57,7 @@
   /* Primary button */
   .btn-primary {
     @apply bg-primary-gradient text-on-primary text-sm font-label font-semibold
-           tracking-wide px-8 py-3.5 rounded-sm
+           tracking-wide px-8 py-3.5 rounded-sm min-h-[48px]
            hover:opacity-90 active:scale-[0.98]
            transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed;
   }
@@ -59,7 +65,7 @@
   /* Ghost button */
   .btn-ghost {
     @apply border border-outline-variant/30 text-on-surface text-sm font-label
-           tracking-wide px-6 py-3 rounded-sm
+           tracking-wide px-6 py-3 rounded-sm min-h-[48px]
            hover:bg-surface-container-low active:scale-[0.98]
            transition-all duration-150;
   }
