@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fafaf5;
+    color: #1a1c19;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .font-headline {
+    font-family: 'Newsreader', serif;
+  }
+
+  ::selection {
+    background-color: #b0f0d6;
+    color: #002117;
+  }
+}
+
+@layer components {
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    font-size: 20px;
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  /* Growth Ledger — the signature component */
+  .growth-ledger-row {
+    display: grid;
+    grid-template-columns: 72px 1fr auto;
+    align-items: baseline;
+    gap: 0 16px;
+  }
+
+  /* Input: bottom border only, no box */
+  .field-input {
+    @apply w-full bg-transparent border-0 border-b border-outline-variant/40 pb-2 pt-1
+           text-on-surface text-sm font-body placeholder-on-surface-variant/40
+           focus:outline-none focus:border-primary focus:border-b-2
+           transition-all duration-200;
+  }
+
+  .field-label {
+    @apply block text-[10px] font-label uppercase tracking-[0.12em] text-on-surface-variant mb-2;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply bg-primary-gradient text-on-primary text-sm font-label font-semibold
+           tracking-wide px-8 py-3.5 rounded-sm
+           hover:opacity-90 active:scale-[0.98]
+           transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  /* Ghost button */
+  .btn-ghost {
+    @apply border border-outline-variant/30 text-on-surface text-sm font-label
+           tracking-wide px-6 py-3 rounded-sm
+           hover:bg-surface-container-low active:scale-[0.98]
+           transition-all duration-150;
+  }
+
+  /* Editorial card */
+  .card {
+    @apply bg-surface-container-lowest border border-outline-variant/10
+           rounded-lg hover:shadow-lift transition-shadow duration-200;
+  }
+
+  /* Status badge */
+  .badge-paid      { @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-primary-fixed text-on-primary-fixed; }
+  .badge-pending   { @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-secondary-container text-on-secondary-container; }
+  .badge-defaulted { @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-error-container text-on-error-container; }
+
+  /* Trust score badges */
+  .trust-excellent { @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-primary text-on-primary; }
+  .trust-good      { @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-primary-container text-on-primary-container; }
+  .trust-fair      { @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-tertiary-fixed text-on-tertiary-fixed; }
+  .trust-new       { @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-surface-container text-on-surface-variant; }
+  .trust-at-risk   { @apply px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-error-container text-error; }
+
+  /* Glass nav */
+  .glass-nav {
+    @apply bg-surface/80 backdrop-blur-xl shadow-editorial;
+  }
+}
