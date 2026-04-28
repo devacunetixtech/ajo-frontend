@@ -131,6 +131,8 @@ export const Sidebar = () => {
 // ─── Top Nav ──────────────────────────────────────────────────────────────────
 export const TopNav = ({ tabs = [] }) => {
   const { pathname } = useLocation();
+  const { logout } = useAuth();
+  
   return (
     <header className="glass-nav fixed top-0 left-0 md:left-64 right-0 z-40 flex justify-between items-center px-6 md:px-12 h-16">
       <div className="flex items-center gap-6 md:gap-8 overflow-x-auto hide-scrollbar">
@@ -151,6 +153,9 @@ export const TopNav = ({ tabs = [] }) => {
       <div className="flex items-center gap-2 md:gap-4 text-on-surface-variant pl-4">
         <button className="hover:text-primary transition-colors min-h-[48px] px-2"><Icon name="notifications" /></button>
         <button className="hover:text-primary transition-colors min-h-[48px] px-2"><Icon name="help_outline" /></button>
+        <button onClick={logout} title="Logout" className="md:hidden hover:text-error transition-colors min-h-[48px] px-2">
+          <Icon name="logout" />
+        </button>
       </div>
     </header>
   );
