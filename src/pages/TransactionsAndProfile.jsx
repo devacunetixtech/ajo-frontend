@@ -72,8 +72,8 @@ export function TransactionsPage() {
           <table className="w-full text-left border-collapse min-w-[500px]">
             <thead>
               <tr className="border-b border-outline-variant/30">
-                {["Date","Circle","Cycle","Status","Amount"].map(h => (
-                  <th key={h} className={`pb-4 text-[10px] font-label uppercase tracking-widest text-on-surface-variant ${h==="Amount"?"text-right":""}`}>
+                {["Date","Circle","Cycle","Status","Amount","Receipt"].map(h => (
+                  <th key={h} className={`pb-4 text-[10px] font-label uppercase tracking-widest text-on-surface-variant ${h==="Amount"||h==="Receipt"?"text-right":""}`}>
                     {h}
                   </th>
                 ))}
@@ -89,6 +89,17 @@ export function TransactionsPage() {
                   <td className="py-6 text-sm text-on-surface-variant">#{c.cycleNumber}</td>
                   <td className="py-6"><StatusBadge status={c.status} /></td>
                   <td className="py-6 text-right font-headline text-xl text-on-surface">{fmt(c.amount)}</td>
+                  <td className="py-6 text-right">
+                    {c.status === "paid" && (
+                      <a 
+                        href={`${import.meta.env.VITE_API_URL || "/api"}/contributions/${c._id}/receipt`}
+                        download
+                        className="text-primary hover:text-secondary inline-flex items-center gap-1 text-[10px] font-label uppercase tracking-widest"
+                      >
+                        <Icon name="download" className="text-sm" /> PDF
+                      </a>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -144,9 +155,56 @@ export function ProfilePage() {
 
   const initials = user?.name?.split(" ").map(n => n[0]).join("").slice(0,2).toUpperCase();
 
+  const [subscribing, setSubscribing] = useState(false);
+
+  const urlBase64ToUint8Array = (base64String) => {
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  };
+
+  const subscribeToPush = async () => {
+    if (!("serviceWorker" in navigator)) return;
+    setSubscribing(true);
+    try {
+      const registration = await navigator.serviceWorker.ready;
+      
+      // Get public key
+      const { data: { publicKey } } = await api.get("/users/push/public-key");
+      
+      const subscription = await registration.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: urlBase64ToUint8Array(publicKey),
+      });
+
+      await api.post("/users/push/subscribe", subscription);
+      success("Notifications enabled!");
+    } catch (err) {
+      console.error(err);
+      toastError("Could not enable notifications. Check browser permissions.");
+    } finally { setSubscribing(false); }
+  };
+
   return (
     <AppShell tabs={[{to:"/profile",label:"Profile"}]}>
       <section className="px-6 md:px-12 py-8 md:py-12 max-w-3xl">
+
+        {/* Push notifications card */}
+        <div className="bg-surface-container-low p-8 rounded-lg mb-12 flex items-center justify-between">
+          <div>
+            <h3 className="font-headline text-xl text-primary mb-1">Push Notifications</h3>
+            <p className="text-sm text-on-surface-variant">Stay updated on payouts and contributions even when the app is closed.</p>
+          </div>
+          <button onClick={subscribeToPush} disabled={subscribing} className="btn-ghost flex items-center gap-2">
+            <Icon name={subscribing ? "sync" : "notifications"} className={subscribing ? "animate-spin" : ""} />
+            {subscribing ? "Enabling…" : "Enable"}
+          </button>
+        </div>
 
         {/* Profile header */}
         <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-8 mb-12 md:mb-16">

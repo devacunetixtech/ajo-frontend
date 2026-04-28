@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
 import { AppShell, Icon, TrustBadge, StatusBadge } from "../components/layout/index";
 import { GroupDetailSkeleton } from "../components/ui/Skeleton";
+import { AnnouncementBoard } from "../components/ui/Announcements";
 import api from "../services/api";
 
 const fmt = (n) => `₦${Number(n).toLocaleString("en-NG")}`;
@@ -464,6 +465,32 @@ export function GroupDetailPage() {
                     ))}
                   </div>
                 </div>
+                
+                {/* Turn Order display */}
+                <div className="card p-10">
+                  <h3 className="font-headline text-2xl text-on-surface mb-8">Payout Order</h3>
+                  <div className="flex flex-wrap gap-4">
+                    {group.turnOrder?.map((member, i) => (
+                      <div key={member._id} className={`flex flex-col items-center p-4 rounded-lg border transition-all ${
+                        group.currentCycle === i + 1 
+                          ? "border-primary bg-primary-fixed/20 scale-105 shadow-sm" 
+                          : "border-outline-variant/20 opacity-60"
+                      }`}>
+                        <div className="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-sm font-bold text-on-primary-fixed mb-2">
+                          {i + 1}
+                        </div>
+                        <p className="text-[10px] font-label uppercase tracking-widest text-on-surface font-semibold truncate max-w-[80px]">{member.name.split(" ")[0]}</p>
+                        {group.currentCycle === i + 1 && (
+                          <p className="text-[8px] font-label uppercase tracking-tighter text-primary mt-1">Receiving Now</p>
+                        )}
+                        {group.currentCycle > i + 1 && (
+                          <Icon name="check_circle" className="text-primary text-xs mt-1" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs text-on-surface-variant mt-6 italic">The order was randomized at the start of the cycle to ensure fairness.</p>
+                </div>
 
                 {/* Member: Pay button */}
                 {myContrib && myContrib.status === "pending" && (
@@ -549,6 +576,9 @@ export function GroupDetailPage() {
                 ))}
               </div>
             </div>
+
+            {/* Announcement Board */}
+            <AnnouncementBoard groupId={id} isAdmin={isAdmin} />
 
             {/* Payout history */}
             <div className="bg-surface-container-low p-8 rounded-lg">
